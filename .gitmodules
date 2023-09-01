@@ -1,0 +1,3 @@
+[submodule "base-xapp/Protolib1"]
+	path = base-xapp/Protolib1
+	url = https://github.com/paski2023/Protolib1.git
