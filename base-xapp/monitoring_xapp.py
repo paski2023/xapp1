@@ -12,7 +12,15 @@ def main():
 
     # internal message
     inner_mess = RAN_indication_request()
-    inner_mess.target_params.extend([RAN_parameter.GNB_ID, RAN_parameter.UE_LIST])
+    inner_mess.target_params.extend([
+        RAN_parameter.GNB_ID,
+        RAN_parameter.UE_LIST,
+        RAN_parameter.UE_RSRP,         # Add the parameters you want here
+        RAN_parameter.UE_BER_UPLINK,
+        RAN_parameter.UE_BER_DOWNLINK,
+        RAN_parameter.UE_MCS_UPLINK,
+        RAN_parameter.UE_MCS_DOWNLINK
+    ])
 
     # assign and serialize
     master_mess.ran_indication_request.CopyFrom(inner_mess)
