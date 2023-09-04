@@ -19,7 +19,8 @@ def main():
         RAN_parameter.UE_BER_UPLINK,
         RAN_parameter.UE_BER_DOWNLINK,
         RAN_parameter.UE_MCS_UPLINK,
-        RAN_parameter.UE_MCS_DOWNLINK
+        RAN_parameter.UE_MCS_DOWNLINK,
+        RAN_parameter.CELL_SIZE
     ])
 
     # assign and serialize
