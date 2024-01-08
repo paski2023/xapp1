@@ -15,7 +15,8 @@ def main():
     inner_mess.target_params.extend([
         RAN_parameter.GNB_ID,
         RAN_parameter.UE_LIST,
-        RAN_parameter.UE_RSRP,         # Add the parameters you want here
+        RAN_parameter.UE_RSRP,         
+        # Add the parameters you want here
         RAN_parameter.UE_BER_UPLINK,
         RAN_parameter.UE_BER_DOWNLINK,
         RAN_parameter.UE_MCS_UPLINK,
