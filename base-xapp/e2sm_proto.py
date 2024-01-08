@@ -1,11 +1,20 @@
 from sys import path
 from os import getcwd
 
-cwd = getcwd()
-path.append('{}/Protolib1/builds'.format(cwd))
 
-tmp = __import__('ran_messages_pb2')
-print("rannando e2sm_proto.py")
-print(tmp)
+cwd = getcwd() #restituisce la directory corrente 
+"""
+sys.path è una lista di directories dove l'interprete python cerca moduli
+"""
+# Si aggiunge il percorso alla cartella Protolib1/builds
+
+path.append('{}/Protolib1/builds'.format(cwd)) 
+import ran_messages_pb2 as tmp
+
+# Infatti il file ran_messages pb2.py si trova in quella cartella
+# tmp = __import__('ran_messages_pb2')
+# L'import effettuato in questo modo permette di rinominare la libreria
+# Siccome la libreria non cambia nome e mantiene sempre la stessa posizione 
+
 globals().update(vars(tmp))
-print("finito di rannare e2sm_proto.py")
+#Aggiorna le variabili globali con le variabili della libreria ran_messages_pb2

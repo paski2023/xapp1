@@ -1,4 +1,8 @@
 import xapp_control_ricbypass
+"""
+Non mi è ben chiaro a cosa serva importare e2sm.py
+"""
+
 from e2sm_proto import *
 from time import sleep
 
