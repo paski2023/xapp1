@@ -26,13 +26,7 @@ def main():
     # nell'indication request 
     inner_mess.target_params.extend([
         RAN_parameter.GNB_ID,
-        RAN_parameter.UE_LIST,         
-        # Add the parameters you want here
-        RAN_parameter.UE_BER_UPLINK,
-        RAN_parameter.UE_BER_DOWNLINK,
-        RAN_parameter.UE_MCS_UPLINK,
-        RAN_parameter.UE_MCS_DOWNLINK,
-        RAN_parameter.CELL_SIZE
+        RAN_parameter.UE_LIST
     ])
 
     # assign and serialize
@@ -52,7 +46,7 @@ def main():
         ran_ind_resp.ParseFromString(r_buf)
         print(ran_ind_resp)
         sleep(1)
-        print("diocane")
+        print("stampa_prova")
         xapp_control_ricbypass.send_to_socket(buf)
 
 
