@@ -1,6 +1,8 @@
 import xapp_control_ricbypass
+
+
 """
-Non mi è ben chiaro a cosa serva importare e2sm.py
+e2sm importa la libreria con il protobuf compilato
 """
 
 from e2sm_proto import *
@@ -24,8 +26,7 @@ def main():
     # nell'indication request 
     inner_mess.target_params.extend([
         RAN_parameter.GNB_ID,
-        RAN_parameter.UE_LIST,
-        RAN_parameter.UE_RSRP,         
+        RAN_parameter.UE_LIST,         
         # Add the parameters you want here
         RAN_parameter.UE_BER_UPLINK,
         RAN_parameter.UE_BER_DOWNLINK,
