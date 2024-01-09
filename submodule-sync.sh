@@ -1,5 +1,5 @@
 #!/bin/bash
 
 git submodule update --init
-cd base-xapp/oai-oran-protolib
+cd base-xapp/Protolib1
 git checkout mrn-base
