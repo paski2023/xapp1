@@ -8,7 +8,7 @@ sys.path è una lista di directories dove l'interprete python cerca moduli
 """
 # Si aggiunge il percorso alla cartella Protolib1/builds
 
-path.append('{}/Protolib1/builds'.format(cwd)) 
+path.append('{}/base-xapp/Protolib1/builds'.format(cwd)) 
 
 
 # Infatti il file ran_messages pb2.py si trova in quella cartella
