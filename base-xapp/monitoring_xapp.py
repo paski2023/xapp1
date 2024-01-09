@@ -38,6 +38,12 @@ def main():
     # assign and serialize
     master_mess.ran_indication_request.CopyFrom(inner_mess)
     buf = master_mess.SerializeToString()
+    
+    '''
+    This is used for transmission of the protobuf data: 
+    you pass the data. If the transmission is not initialized it initialize
+    the transmission and then it send the data. 
+    '''
     xapp_control_ricbypass.send_to_socket(buf)
     
     while True:
@@ -46,6 +52,7 @@ def main():
         ran_ind_resp.ParseFromString(r_buf)
         print(ran_ind_resp)
         sleep(1)
+        print("diocane")
         xapp_control_ricbypass.send_to_socket(buf)
 
 
