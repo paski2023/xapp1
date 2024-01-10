@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     protobuf-compiler
 
 # install protobuf python module
-RUN python3 -m pip install protobuf==3.20.*
+RUN python3 -m pip install protobuf==3.20.* pandas 
 
 # clone repo
 RUN git clone https://github.com/paski2023/xapp1.git

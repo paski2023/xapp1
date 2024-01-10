@@ -45,11 +45,6 @@ def main():
     print(master_mess)
     buf = master_mess.SerializeToString()
     
-    print(type(ue_info_message.ue_rsrp))
-    print(type(ue_info_message.ue_ber_uplink))
-    
-    #except Exception:
-    #        print("[FAILED TO WRITE] writing the buffer failed")
 
     xapp_control_ricbypass.send_to_socket(buf)
 

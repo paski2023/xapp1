@@ -89,10 +89,10 @@ def main():
                     for j in infos: 
                         stringa += str(j) + " "
                         print(f"Informazione: {j}")
-                        print(f"Tipo di dato: {type(infos)}")
-                        
+                        print(f"Tipo di dato: {type(j)}")
+
                     stringa += '\n'
-                    f.write(stringa + "\n")
+                    f.write(stringa )
                 
             
              
