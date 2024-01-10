@@ -44,11 +44,9 @@ def main():
     master_mess.ran_control_request.CopyFrom(inner_mess)
     print(master_mess)
     buf = master_mess.SerializeToString()
-    with open("data.txt", "a") as f:
-        f.write(master_mess + "\n")
-    #try:
-    with open("data.txt", "a") as f:
-        f.write(buf + "\n")
+    
+    print(type(ue_info_message.ue_rsrp))
+    print(type(ue_info_message.ue_ber_uplink))
     
     #except Exception:
     #        print("[FAILED TO WRITE] writing the buffer failed")
