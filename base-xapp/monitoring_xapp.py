@@ -16,10 +16,22 @@ def main():
     # In questo momento lui crea il tipo di dato RAN_message
     # Questo file è stato generato da protobuf
     
-    master_mess = RAN_message()
+    master_mess = RAN_message() # Crea un messaggio 
+    '''
+    Un RAN MESSAGE HA: 
+    -> required RAN_message_type 
+    + one payload which can be: 
+    -> indication request 
+    -> indication response
+    -> control request
+    '''
     #Si imposta che il tipo di messaggio deve essere una INDICATION REQUEST
     master_mess.msg_type = RAN_message_type.INDICATION_REQUEST
 
+    '''
+    Qui creaiamo il payload che identifichiamo come un messaggio indication request 
+    -> repeated RAN_parameters target_params
+    '''
     # internal message
     inner_mess = RAN_indication_request()
     # RAN indication request è definira come una lista di RAN_parameters 
@@ -45,8 +57,34 @@ def main():
         ran_ind_resp = RAN_indication_response()
         ran_ind_resp.ParseFromString(r_buf)
         print(ran_ind_resp)
-        sleep(1)
-        print("stampa_prova")
+        """
+        Nel messaggio di risposta c'è un messaggio ue_list_m
+        con una chiave: UE_LIST 
+        e poi una ue_list_m che continet eun numero di utenti connessi
+        e un repeated ue_info_m
+        -> Indication Response:
+            -> chiave: UE_LIST
+            -> lista: UE_LIST_M -> numero utenti connessi
+                                -> lista: UE_INFO_m -> messaggio con tutti i parametri 
+        """
+        if ran_ind_resp.key == RAN_parameter.UE_LIST:
+            # Se il parametro della risposta è una ue_lista
+            # apri il messaggio, vai alla lista e per tutti gli utenti ripeti 
+            with open('file.txt', "a") as f: 
+            
+                for user in ran_ind_resp.ue_list:
+                    stringa = ""
+                    for j in user.ue_info:
+                        stringa += str(j)
+                        print(f"E' stato aggiunto: {j}")
+                        print(f"Il tipo di questo dato è: {type(str)}")
+
+                    f.write(stringa + "\n")
+                
+            
+             
+        sleep(30)
+        
         xapp_control_ricbypass.send_to_socket(buf)
 
 
