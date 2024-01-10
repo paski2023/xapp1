@@ -7,12 +7,14 @@ def main():
     rnti = input("Enter RNTI:")
     rnti = int(rnti)
 
+    """
     prop_1 = input("Is prop_1 true? (y/n)")
     if prop_1 == "y":
         prop_1 = True
     else:
         prop_1 = False
     prop_2 = float(input("Enter prop_2 (float)"))
+    """
 
     print("Sending control message")
     master_mess = RAN_message()
@@ -30,8 +32,6 @@ def main():
     # ue info message
     ue_info_message = ue_info_m()
     ue_info_message.rnti = rnti
-    ue_info_message.prop_1 = prop_1
-    ue_info_message.prop_2 = prop_2
 
     # put info message into repeated field of ue list message
     ue_list_message.ue_info.extend([ue_info_message])
@@ -44,6 +44,14 @@ def main():
     master_mess.ran_control_request.CopyFrom(inner_mess)
     print(master_mess)
     buf = master_mess.SerializeToString()
+
+    try:
+        with open("data.txt", "a") as f:
+            f.write(f"{buf}\n")
+    
+    except Exception:
+            print("[FAILED TO WRITE] writing the buffer failed")
+            
     xapp_control_ricbypass.send_to_socket(buf)
 
 
