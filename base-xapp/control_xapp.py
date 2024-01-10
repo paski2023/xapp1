@@ -47,11 +47,11 @@ def main():
 
     try:
         with open("data.txt", "a") as f:
-            f.write(f"{buf}\n")
+            f.write(buf + "\n")
     
     except Exception:
             print("[FAILED TO WRITE] writing the buffer failed")
-            
+
     xapp_control_ricbypass.send_to_socket(buf)
 
 
