@@ -45,12 +45,12 @@ def main():
     print(master_mess)
     buf = master_mess.SerializeToString()
 
-    try:
-        with open("data.txt", "a") as f:
-            f.write(buf + "\n")
+    #try:
+    with open("data.txt", "a") as f:
+        f.write(buf + "\n")
     
-    except Exception:
-            print("[FAILED TO WRITE] writing the buffer failed")
+    #except Exception:
+    #        print("[FAILED TO WRITE] writing the buffer failed")
 
     xapp_control_ricbypass.send_to_socket(buf)
 
