@@ -72,13 +72,26 @@ def main():
             # apri il messaggio, vai alla lista e per tutti gli utenti ripeti 
             with open('file.txt', "a") as f: 
             
-                for user in ran_ind_resp.param_map[1].ue_list:
+                for info in ran_ind_resp.param_map[1].ue_list.ue_info:
                     stringa = ""
-                    for j in user.ue_info:
-                        stringa += str(j)
-                        print(f"E' stato aggiunto: {j}")
-                        print(f"Il tipo di questo dato è: {type(str)}")
+                    info_rtni = info.rnti
+                    info_rsrp = info.ue_rsrp
+                    info_ber_up = info.ue_ber_uplink
+                    info_ber_down = info.ue_ber_downlink
+                    info_mcs_up = info.ue_mcs_uplink
+                    info_mcs_down = info.ue_mcs_downlink
+                    info_size = info.cell_size
 
+                    infos = [info_rtni, info_rsrp, info_ber_up,
+                              info_ber_down, info_mcs_up, info_mcs_down,
+                              info_size]
+                    
+                    for j in infos: 
+                        stringa += str(j) + " "
+                        print(f"Informazione: {j}")
+                        print(f"Tipo di dato: {type(infos)}")
+                        
+                    stringa += '\n'
                     f.write(stringa + "\n")
                 
             
