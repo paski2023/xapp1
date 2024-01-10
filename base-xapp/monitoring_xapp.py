@@ -67,12 +67,12 @@ def main():
             -> lista: UE_LIST_M -> numero utenti connessi
                                 -> lista: UE_INFO_m -> messaggio con tutti i parametri 
         """
-        if ran_ind_resp.key == RAN_parameter.UE_LIST:
+        if ran_ind_resp.param_map.key == RAN_parameter.UE_LIST:
             # Se il parametro della risposta è una ue_lista
             # apri il messaggio, vai alla lista e per tutti gli utenti ripeti 
             with open('file.txt', "a") as f: 
             
-                for user in ran_ind_resp.ue_list:
+                for user in ran_ind_resp.param_map.ue_list:
                     stringa = ""
                     for j in user.ue_info:
                         stringa += str(j)
