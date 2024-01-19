@@ -143,7 +143,7 @@ def main():
             row.update(current_data[key])
 
             #add to data 
-            pd.concat([data, pd.DataFrame(row.values, columns = columns)], ignore_index = True)
+            pd.concat([data, pd.DataFrame(row.values(), columns = columns)], ignore_index = True)
 
         end = time.time()
         print("COMPUTING STATISTICS COMPLETED")
