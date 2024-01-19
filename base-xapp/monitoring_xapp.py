@@ -106,7 +106,7 @@ def main():
                             
                             current_data[ue.rnti]["RSRP"].append(ue.ue_rsrp)
                             current_data[ue.rnti]["BER-up"].append(ue.ue_ber_uplink)
-                            current_data[ue.rnti]["BER-dwon"].append(ue.ue_ber_downlink)
+                            current_data[ue.rnti]["BER-down"].append(ue.ue_ber_downlink)
                             current_data[ue.rnti]["MCS-up"] = ue.ue_mcs_uplink
                             current_data[ue.rnti]["MCS-down"] = ue.ue_mcs_downlink
                             current_data[ue.rnti]["cell-load"].append(ue.cell_size)
