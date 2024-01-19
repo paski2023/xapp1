@@ -141,9 +141,10 @@ def main():
             #create row
             row = {"RNTI": key}
             row.update(current_data[key])
-
+            
+            df_row = pd.DataFrame(row)
             #add to data 
-            pd.concat([data, pd.DataFrame(row.values(), columns = columns)], ignore_index = True)
+            data = pd.concat([data, df_row], ignore_index = True)
 
         end = time.time()
         print("COMPUTING STATISTICS COMPLETED")
