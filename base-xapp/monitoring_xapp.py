@@ -112,7 +112,7 @@ def main():
                             current_data[ue.rnti]["cell-load"].append(ue.cell_size)
 
                         else: 
-                            current_data[ue.rnti] = {"Time": current_time, "RSRP": [ue.rsrp], 
+                            current_data[ue.rnti] = {"Time": current_time, "RSRP": [ue.ue_rsrp], 
                                                     "BER-up": [ue.ue_ber_uplink], 
                                                     "BER-down": [ue.ue_ber_downlink],
                                                     "MCS-up": ue.ue_mcs_uplink,
