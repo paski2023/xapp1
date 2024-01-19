@@ -100,7 +100,7 @@ def main():
                 if param_map_entry.key == RAN_parameter.UE_LIST:
                     
                     # execute this only if the message contain the list
-                    for ue in param_map_entry.ue_list.ue_list.ue_info: 
+                    for ue in param_map_entry.ue_list.ue_info: 
 
                         if ue.rnti in current_data.keys(): 
                             
