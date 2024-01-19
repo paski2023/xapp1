@@ -7,6 +7,9 @@ e2sm importa la libreria con il protobuf compilato
 
 from e2sm_proto import *
 from time import sleep
+import time 
+import numpy as np 
+import pandas as pd
 
 def main():    
 
@@ -51,54 +54,107 @@ def main():
     the transmission and then it send the data. 
     '''
     xapp_control_ricbypass.send_to_socket(buf)
+
+
+    columns = ["RTNI", "Time", "RSRP", "BER-up", "BER-down", 
+                "MCS-up", "MCS-down", "cell-load"]
+    
+    data = pd.DataFrame(columns)
     
     while True:
-        r_buf = xapp_control_ricbypass.receive_from_socket()
-        ran_ind_resp = RAN_indication_response()
-        ran_ind_resp.ParseFromString(r_buf)
-        print(ran_ind_resp)
-        """
-        Nel messaggio di risposta c'è un messaggio ue_list_m
-        con una chiave: UE_LIST 
-        e poi una ue_list_m che continet eun numero di utenti connessi
-        e un repeated ue_info_m
-        -> Indication Response:
-            -> chiave: UE_LIST
-            -> lista: UE_LIST_M -> numero utenti connessi
-                                -> lista: UE_INFO_m -> messaggio con tutti i parametri 
-        """
-        if ran_ind_resp.param_map[1].key == RAN_parameter.UE_LIST:
-            # Se il parametro della risposta è una ue_lista
-            # apri il messaggio, vai alla lista e per tutti gli utenti ripeti 
-            with open('file.txt', "a") as f: 
-            
-                for info in ran_ind_resp.param_map[1].ue_list.ue_info:
-                    stringa = ""
-                    info_rtni = info.rnti
-                    info_rsrp = info.ue_rsrp
-                    info_ber_up = info.ue_ber_uplink
-                    info_ber_down = info.ue_ber_downlink
-                    info_mcs_up = info.ue_mcs_uplink
-                    info_mcs_down = info.ue_mcs_downlink
-                    info_size = info.cell_size
 
-                    infos = [info_rtni, info_rsrp, info_ber_up,
-                              info_ber_down, info_mcs_up, info_mcs_down,
-                              info_size]
+        n_requests = 10
+        waiting_time = 0.5 # 500ms
+
+        """
+        # currrent_data is a dictionary
+        # rtni -> { time: timestamp, 
+                    rsrp : [], 
+                    ber_up: [],
+                    ber_down: [],
+                    mcs_up: last_value
+                    mcs_down:last_value
+                    cell_load: []
+                }
+        """
+
+        current_data = {}
+        columns = ["Time", "RSRP", "BER-up", "BER-down", "MCS-up", "MCS-down", "Cell-load"]
+        for _ in n_requests: 
+
+            # code for recieving the indication response
+            # and parsing it
+            r_buf = xapp_control_ricbypass.receive_from_socket()
+            ran_ind_resp = RAN_indication_response()
+            ran_ind_resp.ParseFromString(r_buf)
+
+            #timestamp
+            current_time = pd.TimeStamp.now()
+            
+            # printing the strin gto terminal
+            print(ran_ind_resp)
+            
+            for param_map_entry in ran_ind_resp: 
+
+                if param_map_entry.key == RAN_parameter.UE_LIST:
                     
-                    for j in infos: 
-                        stringa += str(j) + " "
-                        print(f"Informazione: {j}")
-                        print(f"Tipo di dato: {type(j)}")
+                    # execute this only if the message contain the list
+                    for ue in param_map_entry.ue_list.ue_list.ue_info: 
 
-                    stringa += '\n'
-                    f.write(stringa )
-                
-            
-             
-        sleep(30)
+                        if ue.rnti in current_data.keys(): 
+                            
+                            current_data[ue.rnti]["RSRP"].append(ue.rsrp)
+                            current_data[ue.rnti]["BER-up"].append(ue.ue_ber_uplink)
+                            current_data[ue.rnti]["BER-dwon"].append(ue.ue_ber_downlink)
+                            current_data[ue.rnti]["MCS-up"] = ue.ue_mcs_uplink
+                            current_data[ue.rnti]["MCS-down"] = ue.ue_mcs_downlink
+                            current_data[ue.rnti]["cell-load"].append(ue.cell_size)
+
+                        else: 
+                            current_data[ue.rnti] = {"Time": current_time, "RSRP": [ue.rsrp], 
+                                                    "BER-up": [ue.ue_ber_uplink], 
+                                                    "BER-down": [ue.ue_ber_downlink],
+                                                    "MCS-up": ue.ue_mcs_uplink,
+                                                    "MCS-down": ue.ue_ber_downlink,
+                                                    "cell-load": [ue.cell_size]}
+
+
+
+            #wait 
+            sleep(waiting_time/n_requests)
+
+            # send the new request
+            xapp_control_ricbypass.send_to_socket(buf)
+
         
-        xapp_control_ricbypass.send_to_socket(buf)
+        start = time.time()
+
+        for key in current_data.keys(): 
+            
+
+            current_data[key]["RSRP"] = sum(current_data[key]["RSRP"]) / len(current_data[key]["RSRP"])
+            current_data[key]["BER-up"] = sum(current_data[key]["BER-up"]) / len(current_data[key]["BER-up"])
+            current_data[key]["BER-down"] = sum(current_data[key]["BER-down"]) / len(current_data[key]["BER-down"])
+            current_data[key]["cell-load"] = sum(current_data[key]["cell-load"]) / len(current_data[key]["cell-load"])
+
+
+            #create row
+            row = {"RNTI": key}
+            row.update(current_data[key])
+
+            #add to data 
+            data = data.append(row, ignore_index = True)
+
+        end = time.time()
+        print("COMPUTING STATISTICS COMPLETED")
+        print(f"Time to complete statistics: {end-start}s")
+    
+        
+        start = time.time()
+        data.to_csv("CSV_dati.csv")
+        end = time.time()
+        print("SAVE CHANGES TO CSV COMPLETED")
+        print(f"Time to complete saving: {end-start}s")
 
 
 if __name__ == '__main__':
