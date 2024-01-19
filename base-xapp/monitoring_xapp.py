@@ -90,7 +90,7 @@ def main():
             ran_ind_resp.ParseFromString(r_buf)
 
             #timestamp
-            current_time = pd.TimeStamp.now()
+            current_time = pd.Timestamp.now()
             
             # printing the strin gto terminal
             print(ran_ind_resp)
