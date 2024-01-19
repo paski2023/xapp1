@@ -93,7 +93,7 @@ def main():
             current_time = pd.Timestamp.now()
             
             # printing the strin gto terminal
-            print(ran_ind_resp)
+            # print(ran_ind_resp)
             
             for param_map_entry in ran_ind_resp.param_map: 
 
@@ -142,7 +142,7 @@ def main():
             row = {"RNTI": key}
             row.update(current_data[key])
             
-            df_row = pd.Series(row)
+            df_row = pd.DataFrame([row])
             #add to data 
             data = pd.concat([data, df_row], ignore_index = True)
 
