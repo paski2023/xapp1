@@ -95,7 +95,7 @@ def main():
             # printing the strin gto terminal
             print(ran_ind_resp)
             
-            for param_map_entry in ran_ind_resp.target_params: 
+            for param_map_entry in ran_ind_resp.param_map: 
 
                 if param_map_entry.key == RAN_parameter.UE_LIST:
                     
