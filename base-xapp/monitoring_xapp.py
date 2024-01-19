@@ -142,7 +142,7 @@ def main():
             row = {"RNTI": key}
             row.update(current_data[key])
             
-            df_row = pd.DataFrame.from_dict(row, orient = "index", columns = row.keys())
+            df_row = pd.Series(row)
             #add to data 
             data = pd.concat([data, df_row], ignore_index = True)
 
