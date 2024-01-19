@@ -58,7 +58,7 @@ def main():
     columns = ["RTNI", "Time", "RSRP", "BER-up", "BER-down", 
                 "MCS-up", "MCS-down", "cell-load"]
     
-    data = pd.DataFrame(columns)
+    data = pd.DataFrame()
     
     while True:
 
