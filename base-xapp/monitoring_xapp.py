@@ -104,7 +104,7 @@ def main():
 
                         if ue.rnti in current_data.keys(): 
                             
-                            current_data[ue.rnti]["RSRP"].append(ue.rsrp)
+                            current_data[ue.rnti]["RSRP"].append(ue.ue_rsrp)
                             current_data[ue.rnti]["BER-up"].append(ue.ue_ber_uplink)
                             current_data[ue.rnti]["BER-dwon"].append(ue.ue_ber_downlink)
                             current_data[ue.rnti]["MCS-up"] = ue.ue_mcs_uplink
