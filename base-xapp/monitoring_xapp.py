@@ -78,7 +78,7 @@ def main():
         """
 
         current_data = {}
-        columns = ["Time", "RSRP", "BER-up", "BER-down", "MCS-up", "MCS-down", "Cell-load"]
+        columns_ = ["Time", "RSRP", "BER-up", "BER-down", "MCS-up", "MCS-down", "Cell-load"]
         for _ in range(n_requests): 
 
             # code for recieving the indication response
@@ -143,7 +143,7 @@ def main():
             row.update(current_data[key])
 
             #add to data 
-            pd.concat([data, pd.DataFrame.from_dict(row)], ignore_index = True)
+            pd.concat([data, pd.DataFrame(row.values, columns = columns)], ignore_index = True)
 
         end = time.time()
         print("COMPUTING STATISTICS COMPLETED")
