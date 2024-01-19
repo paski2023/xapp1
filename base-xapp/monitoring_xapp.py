@@ -80,7 +80,7 @@ def main():
 
         current_data = {}
         columns = ["Time", "RSRP", "BER-up", "BER-down", "MCS-up", "MCS-down", "Cell-load"]
-        for _ in n_requests: 
+        for _ in range(n_requests): 
 
             # code for recieving the indication response
             # and parsing it
