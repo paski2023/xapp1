@@ -53,8 +53,7 @@ def main():
     you pass the data. If the transmission is not initialized it initialize
     the transmission and then it send the data. 
     '''
-    xapp_control_ricbypass.send_to_socket(buf)
-
+    
 
     columns = ["RTNI", "Time", "RSRP", "BER-up", "BER-down", 
                 "MCS-up", "MCS-down", "cell-load"]
@@ -84,6 +83,8 @@ def main():
 
             # code for recieving the indication response
             # and parsing it
+            xapp_control_ricbypass.send_to_socket(buf)
+
             r_buf = xapp_control_ricbypass.receive_from_socket()
             ran_ind_resp = RAN_indication_response()
             ran_ind_resp.ParseFromString(r_buf)
@@ -123,8 +124,7 @@ def main():
             #wait 
             sleep(waiting_time/n_requests)
 
-            # send the new request
-            xapp_control_ricbypass.send_to_socket(buf)
+
 
         
         start = time.time()
