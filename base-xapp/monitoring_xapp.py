@@ -117,7 +117,7 @@ def main():
                                                     "BER-down": [ue.ue_ber_downlink],
                                                     "MCS-up": ue.ue_mcs_uplink,
                                                     "MCS-down": ue.ue_ber_downlink,
-                                                    "cell-load": [ue.cell_load}
+                                                    "cell-load": [ue.cell_load]}
 
 
 
