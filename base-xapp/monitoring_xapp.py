@@ -93,7 +93,7 @@ def main():
             current_time = pd.Timestamp.now()
             
             # printing the strin gto terminal
-            # print(ran_ind_resp)
+            print(ran_ind_resp)
             
             for param_map_entry in ran_ind_resp.param_map: 
 
